@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function ProfileScreen({ navigation }) {
@@ -13,7 +13,32 @@ export default function ProfileScreen({ navigation }) {
       console.log("Profil enregistré:", { name, age, bloodGroup });
       alert("Profil sauvegardé !");
     };
-  
+    
+    const saveProfile = async (profileData) => {
+      try {
+        await AsyncStorage.setItem('userProfile', JSON.stringify(profileData));
+        setUserProfile(profileData);
+      } catch (error) {
+        console.error('Erreur lors de la sauvegarde du profil :', error);
+      }
+    };
+    
+    const loadProfile = async () => {
+      try {
+        const profile = await AsyncStorage.getItem('userProfile');
+        if (profile !== null) {
+          setUserProfile(JSON.parse(profile));
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement du profil :', error);
+      }
+    };
+    
+    useEffect(() => {
+      loadProfile();
+    }, []);
+
+    
     return (
       <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.header}>Profil Utilisateur</Text>

@@ -38,6 +38,34 @@ const AppointmentScreen = () => {
     // Ici, tu peux envoyer `newDate` à ton API ou effectuer d'autres actions nécessaires
   };
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://192.168.86.42:5000/api/appointments', {
+        // données du rendez-vous
+      });
+      if (response.status === 201) {
+        alert('Rendez-vous enregistré avec succès');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement du rendez-vous :', error);
+      alert('Une erreur est survenue. Veuillez réessayer.');
+    }
+  };
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get('http://192.168.86.42:5000/api/appointments');
+        setAppointments(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des rendez-vous :', error);
+      }
+    };
+  
+    fetchAppointments();
+  }, []);
+  
+  
   return (
     <View>
       <Button title="Choisir une date" onPress={showDatePicker} />

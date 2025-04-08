@@ -33,6 +33,12 @@ export default function BloodDonationScreen() {
         return;
       }
 
+      let serviceEnabled = await Location.hasServicesEnabledAsync();
+    if (!serviceEnabled) {
+      alert('Les services de localisation sont désactivés. Veuillez les activer.');
+      return;
+    }
+    
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation.coords);
     })();
