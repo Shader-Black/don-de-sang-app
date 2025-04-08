@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, View, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import axios from 'axios';
 
 const AppointmentScreen = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);

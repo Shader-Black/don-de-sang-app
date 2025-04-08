@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -38,7 +38,7 @@ export default function ProfileScreen({ navigation }) {
       loadProfile();
     }, []);
 
-    
+
     return (
       <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.header}>Profil Utilisateur</Text>
